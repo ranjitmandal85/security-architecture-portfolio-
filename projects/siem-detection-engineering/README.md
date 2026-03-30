@@ -50,21 +50,26 @@ The environment had multiple security tools (firewalls, VPN, IAM, servers), but:
 ```mermaid
 flowchart TD
 
-A[Firewalls (Palo Alto / Check Point)] --> L[Log Collectors]
-B[VPN Gateways (IPSEC / SSL VPN)] --> L
-C[IAM / AAA (Cisco ISE / AD)] --> L
+%% Log Sources
+A[Firewalls<br/>Palo Alto / Check Point] --> L[Log Collectors]
+B[VPN Gateways<br/>IPSEC / SSL VPN] --> L
+C[IAM / AAA<br/>Cisco ISE / AD] --> L
 D[Servers / OS Logs] --> L
-E[Cloud Logs (AWS CloudTrail)] --> L
+E[Cloud Logs<br/>AWS CloudTrail] --> L
 
-L --> P[Log Processing (Parsing / Normalization)]
-P --> S[SIEM Platform (Splunk / Sumo Logic)]
+%% Pipeline
+L --> P[Log Processing Layer<br/>Parsing / Normalization]
+P --> S[SIEM Platform<br/>Splunk / Sumo Logic]
 
+%% Detection
 S --> D1[Correlation Rules]
 S --> D2[Detection Use Cases]
 S --> D3[Dashboards]
 
-D1 --> R[Alerts]
+%% Response
+D1 --> R[Security Alerts]
 D2 --> R
 R --> SOC[Security Operations Team]
 
-SOC -->|Feedback Loop| D1
+%% Feedback loop
+SOC -->|Tuning / Feedback| D1
