@@ -78,8 +78,8 @@ SOC -->|Tuning / Feedback| D1
 
 ## 🔹 Log Pipeline Design
 ### Log Sources
-Firewalls (traffic, threat logs)
-VPN (user login, session activity)
-IAM / AAA (authentication, authorization)
-Windows/Linux systems
-Cloud logs (AWS)
+- Firewalls (traffic, threat logs)
+- VPN (user login, session activity)
+- IAM / AAA (authentication, authorization)
+- Windows/Linux systems
+- Cloud logs (AWS)
