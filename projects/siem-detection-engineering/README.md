@@ -1,159 +1,70 @@
-🔹 Title
+# 🔐 SIEM Detection Engineering & Log Pipeline Design
 
-SIEM Detection Engineering & Log Pipeline Design for Enterprise Security Monitoring
+## 🔹 Overview
+Designed and implemented a **security monitoring architecture** to improve detection visibility, log coverage, and incident response readiness across enterprise infrastructure.
 
-🔹 1. Overview 
+Goal:
+> Move from "logs exist" → to → "actionable security detection"
 
-In this project, I designed and implemented a security monitoring architecture focused on improving detection visibility, log coverage, and incident response readiness across enterprise infrastructure.
+---
 
-The goal was to move from:
-
-“Logs exist” → to → “Actionable security detection”
-
-🔹 2. Problem Statement
+## 🔹 Problem Statement
 
 The environment had multiple security tools (firewalls, VPN, IAM, servers), but:
 
-❌ Logs were not centralized
-❌ No standardized log format or correlation
-❌ Detection use-cases were missing or incomplete
-❌ High noise, low signal (alert fatigue)
-❌ Limited visibility into user behavior and access misuse
+- Logs were not centralized  
+- No standardized log format or correlation  
+- Detection use-cases were missing or incomplete  
+- High noise, low signal (alert fatigue)  
+- Limited visibility into user behavior  
 
-👉 Result:
+**Impact:**
+- Security incidents could go undetected  
+- SOC lacked actionable insights  
 
-Security incidents could go undetected
-SOC lacked actionable insights
-🔹 3. Objectives
-Design a centralized SIEM architecture
-Build log ingestion pipeline
-Create high-value detection use-cases
-Reduce noise and improve signal quality
-Enable incident response visibility
-🔹 4. Architecture Design
-🔐 Design Principles
-Collect logs from critical control points
-Normalize → Correlate → Detect
-Focus on identity + access behavior
-Ensure logs are actionable, not just stored
-📊 SIEM Architecture Diagram (GitHub Ready)
-🔹 5. Log Pipeline Design
-📥 Log Sources Integrated
-Firewalls (traffic, threat logs)
-VPN (user login, session activity)
-IAM / AAA (authentication, authorization)
-Windows/Linux (system logs)
-Cloud (AWS logs)
-🔄 Processing Steps
-Collection
-Syslog / API ingestion
-Parsing
-Normalize fields (user, IP, action, timestamp)
-Enrichment
-Geo-location
-User identity mapping
-Asset criticality
-Indexing
-Structured storage in SIEM
-🔹 6. Detection Use-Cases (Core of Project)
-			🔍 1. VPN Anomaly Detection
-			
-			Use Case:
-			Detect suspicious VPN access patterns
-			
-			Logic:
-			
-			Multiple login failures followed by success
-			Login from unusual geo-location
-			Concurrent logins from different locations
-			
-			Outcome:
-			
-			Early detection of compromised credentials
-			🔍 2. IAM / AAA Abuse Detection
-			
-			Use Case:
-			Detect misuse of privileged or valid accounts
-			
-			Logic:
-			
-			Login outside business hours
-			Privilege escalation events
-			Access to restricted network segments
-			
-			Outcome:
-			
-			Detection of insider threats or compromised accounts
-			🔍 3. Firewall Threat Detection
-			
-			Use Case:
-			Identify malicious traffic patterns
-			
-			Logic:
-			
-			Repeated deny logs from same source
-			Known malicious IP communication
-			Unusual east-west traffic spikes
-			
-			Outcome:
-			
-			Detection of scanning, lateral movement
-			🔍 4. Lateral Movement Indicator
+---
 
-Use Case:
-Detect movement inside network
+## 🔹 Objectives
 
-Logic:
-Multiple internal connections across segments
-Access pattern deviation
+- Design centralized SIEM architecture  
+- Build log ingestion pipeline  
+- Create high-value detection use-cases  
+- Reduce noise and improve signal quality  
+- Enable incident response visibility  
 
+---
 
+## 🔹 Architecture Design
 
-🔹 7. Dashboards & Visibility
+### Design Principles
 
-Created dashboards for:
+- Collect logs from critical control points  
+- Normalize → Correlate → Detect  
+- Focus on identity + access behavior  
+- Ensure logs are actionable  
 
-VPN activity trends
-Authentication success/failure rates
-Firewall deny/allow trends
-Top talkers / suspicious IPs
+---
 
-👉 Focus: Make security visible
+## 🔹 SIEM Architecture Diagram
 
-🔹 8. Security Improvements Achieved
+```mermaid
+flowchart TD
 
-✅ Centralized log visibility across systems
-✅ Reduced alert noise through tuning
-✅ Enabled real-time detection of threats
-✅ Improved SOC response capability
-✅ Built foundation for behavior-based detection
+A[Firewalls (Palo Alto / Check Point)] --> L[Log Collectors]
+B[VPN Gateways (IPSEC / SSL VPN)] --> L
+C[IAM / AAA (Cisco ISE / AD)] --> L
+D[Servers / OS Logs] --> L
+E[Cloud Logs (AWS CloudTrail)] --> L
 
-🔹 9. Challenges & Solutions
-⚠️ Challenge: High log volume
+L --> P[Log Processing (Parsing / Normalization)]
+P --> S[SIEM Platform (Splunk / Sumo Logic)]
 
-✔️ Solution: Filtering + prioritization
+S --> D1[Correlation Rules]
+S --> D2[Detection Use Cases]
+S --> D3[Dashboards]
 
-⚠️ Challenge: False positives
+D1 --> R[Alerts]
+D2 --> R
+R --> SOC[Security Operations Team]
 
-✔️ Solution: Rule tuning + threshold adjustment
-
-⚠️ Challenge: Lack of context
-
-✔️ Solution: Enrichment (user, geo, asset)
-
-🔹 10. Lessons Learned (Architect View)
-Detection must focus on behavior, not just signatures
-Logs without context are low value
-SIEM success depends on use-case quality, not tool
-Identity logs are the most critical signal
-🔹 11. Future Enhancements
-UEBA (User Behavior Analytics)
-Integration with SOAR (automated response)
-EDR/XDR integration
-Threat intelligence feeds
-🔹 12. Tools & Technologies
-SIEM: Splunk / Sumo Logic
-Log ingestion: Syslog, APIs
-Firewall logs: Palo Alto / Check Point
-IAM: Cisco ISE, Active Directory
-Cloud: AWS logs
+SOC -->|Feedback Loop| D1
