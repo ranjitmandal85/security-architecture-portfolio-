@@ -2,7 +2,7 @@
 
 SIEM Detection Engineering & Log Pipeline Design for Enterprise Security Monitoring
 
-🔹 1. Overview
+🔹 1. Overview 
 
 In this project, I designed and implemented a security monitoring architecture focused on improving detection visibility, log coverage, and incident response readiness across enterprise infrastructure.
 
