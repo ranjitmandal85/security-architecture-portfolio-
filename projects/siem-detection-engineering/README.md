@@ -74,6 +74,7 @@ R --> SOC[Security Operations Team]
 %% Feedback loop
 SOC -->|Tuning / Feedback| D1
 
+```mermaid
 ---
 
 ## 🔹 Log Pipeline Design
